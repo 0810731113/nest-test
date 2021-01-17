@@ -5,33 +5,30 @@ import {Cat} from './interface/cat.interface';
 
 @Controller('test')
 export class TestController {
-    constructor(private readonly catsService: TestService){}
+    constructor(private readonly testService: TestService){}
 
     @Get()
     async findAll(): Promise<Cat[]>{
-        return this.catsService.findAll();
+        return this.testService.findAll();
     }
 
-    @Get(':id')
-    findOne(
-        @Param('id') id: number,
-        @Query('key') key: string,
-        @Body('yyy') yyy: string,
+    @Get(':username')
+    async findOne(
+        @Param('username') username: string,
+        // @Query('key') key: string,
+        // @Body('yyy') yyy: string,
     ){
-        console.log(id);
-        console.log(key);
-        console.log(yyy);
-        return id;
+       const user = await this.testService.findOne(username);
+        return user;
     }
-    @Post(':id')
-    getBody(
-        @Param('id') id: number,
-        @Query('key') key: string,
-        @Body('yyy') yyy: Object,
+    @Post('username')
+    async getBody(
+        // @Param('id') id: number,
+        // @Query('key') key: string,
+        @Body('username') username: string,
     ){
-        console.log(id);
-        console.log(key);
-        console.log(yyy);
-        return id;
+        console.log(username);
+        const user = await this.testService.findOne(username);
+        return user;
     }
 }

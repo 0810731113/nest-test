@@ -29,9 +29,12 @@
     "cookie-parser": "^1.4.5",
     "dotenv-expand": "^5.1.0",
     "http-proxy-middleware": "^1.0.6",
+    "mysql2": "^2.2.5",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.3",
+    "sequelize": "^6.3.5",
+    "sequelize-typescript": "^2.0.0",
     "shelljs": "^0.8.4"
   },
   "devDependencies": {
