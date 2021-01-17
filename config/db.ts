@@ -6,7 +6,7 @@ const productConfig = {
         user: 'root',
         password: 'Libo@1234',
         database: 'test', // 库名
-        connectionLimit: 10, // 连接限制
+        connectionLimit: 20, // 连接限制
     },
 };
 
@@ -17,7 +17,7 @@ const localConfig = {
         user: 'root',
         password: 'Libo@1234',
         database: 'test', // 库名
-        connectionLimit: 10, // 连接限制
+        connectionLimit: 20, // 连接限制
     },
 };
 
