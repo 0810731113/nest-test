@@ -17,3 +17,4 @@ export const getHost = () => {
 
     return host;
 };
+
