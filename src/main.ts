@@ -6,13 +6,23 @@ import {ConfigService} from '@nestjs/config';
 import {createProxyMiddleware} from 'http-proxy-middleware';
 import {logger} from './middleware/logger.middleware';
 const cookieParser = require('cookie-parser') ;
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+import * as express from 'express';
+import {TransformInterceptor} from './interceptor/transform.interceptor';
+import {HttpExceptionFilter} from './filter/http-exception.filter';
+import {AllExceptionsFilter} from './filter/any-exception.filter';
+
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.use(express.json()); // For parsing application/json
+  app.use(express.urlencoded({ extended: true }));
   app.use(cookieParser());
   app.use(bodyParser.urlencoded({ extended: false }))
   app.useGlobalPipes(new ValidationPipe())
+  app.useGlobalInterceptors(new TransformInterceptor());
+  app.useGlobalFilters(new AllExceptionsFilter())
+  app.useGlobalFilters(new HttpExceptionFilter())
   const configService = app.get(ConfigService);
   console.log(`-------------configService--------------`);
   console.log(configService);
