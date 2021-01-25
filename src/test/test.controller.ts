@@ -25,10 +25,10 @@ export class TestController {
     async getBody(
         // @Param('id') id: number,
         // @Query('key') key: string,
-        @Body('username') username: string,
+        @Body() body: any,
     ){
-        console.log(username);
-        const user = await this.testService.findOne(username);
+        console.log(body);
+        const user = await this.testService.findOne(body?.username);
         return user;
     }
 }

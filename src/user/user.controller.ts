@@ -5,8 +5,11 @@ import {AuthService} from '../logical/auth/auth.service';
 import {AuthGuard} from '@nestjs/passport';
 import {RegisterInfoDTO} from './user.dto';
 import {ValidationPipe} from '../pipe/validation.pipe';
+import {ApiTags,ApiBearerAuth,ApiBody} from '@nestjs/swagger';
+import {LoginDTO} from './user.dto'
 
 // @ts-ignore
+@ApiTags('user')
 @Controller('user')
 export class UserController {
     constructor(private readonly authService: AuthService,private readonly userService: UserService){}
@@ -39,12 +42,20 @@ export class UserController {
     // @UseGuards(AuthGuard('jwt'))
     @UsePipes(new ValidationPipe())
     @Post('register')
+    @ApiBody({
+        description: '用户注册',
+        type: RegisterInfoDTO,
+    })
     async register(@Body() body: RegisterInfoDTO) {
         return await this.userService.register(body);
     }
 
     // JWT验证 - Step 1: 用户请求登录
     @Post('login')
+    @ApiBody({
+        description: '用户登录',
+        type: LoginDTO,
+    })
     async login(@Body() loginParmas: any) {
         console.log('JWT验证 - Step 1: 用户请求登录');
         const authResult = await this.authService.validateUser(loginParmas.username, loginParmas.password);
