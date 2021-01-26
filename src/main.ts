@@ -9,10 +9,11 @@ const cookieParser = require('cookie-parser') ;
 const bodyParser = require('body-parser');
 import * as express from 'express';
 import {TransformInterceptor} from './interceptor/transform.interceptor';
-import {HttpExceptionFilter} from './filter/http-exception.filter';
 import {AllExceptionsFilter} from './filter/any-exception.filter';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { HttpExceptionFilter } from './filters/exception.filter';
+import { DowngradeService } from './downgrade/downgrade.service';
 // import path,{ join } from 'path';
 import * as path from 'path';
 
@@ -29,17 +30,23 @@ async function bootstrap() {
   // app.useGlobalFilters(new HttpExceptionFilter())
   // app.useStaticAssets(path.join('public'));
   // app.useStaticAssets(path.join('public'));
-  app.useStaticAssets(path.join('public'),{
-    prefix: '/assets/',   //设置虚拟路径
-  });
-  app.setBaseViewsDir(path.join('views'));
+  // app.useStaticAssets(path.join('public'),{
+  //   prefix: '/assets/',   //设置虚拟路径
+  // });
+  // app.setBaseViewsDir(path.join('views'));
   // app.setBaseViewsDir(path.join(__dirname, 'views'));
-  app.setViewEngine('hbs');
+  // app.setViewEngine('hbs');
   const configService = app.get(ConfigService);
-  console.log(`-------------configService--------------`);
+  const downgradeService = app.get(DowngradeService);
+  console.log(`--------
+  
+  -----configService--------------`);
   console.log(configService);
+  app.useGlobalFilters(
+      new HttpExceptionFilter(downgradeService, configService),
+  );
   // app.setGlobalPrefix(`nest`)
-  //app.setGlobalPrefix(configService.get('BASE'));
+  app.setGlobalPrefix(configService.get('BASE'));
   app.use(logger);
   const proxyMidware = createProxyMiddleware({
     target: configService.get('TARGET'),
