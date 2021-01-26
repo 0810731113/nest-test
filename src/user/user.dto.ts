@@ -30,6 +30,7 @@ export class RegisterInfoDTO {
     readonly mobile: number;
     @ApiPropertyOptional({
         description: '[用户角色]: 0-超级管理员 | 1-管理员 | 2-开发&测试&运营 | 3-普通用户（只能查看）',
+        enum:[0,1,2,3,4]
     })
     readonly role?: number | string;
 }

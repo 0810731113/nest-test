@@ -5,11 +5,16 @@ import {AuthService} from '../logical/auth/auth.service';
 import {AuthGuard} from '@nestjs/passport';
 import {RegisterInfoDTO} from './user.dto';
 import {ValidationPipe} from '../pipe/validation.pipe';
-import {ApiTags,ApiBearerAuth,ApiBody} from '@nestjs/swagger';
+import {ApiTags,ApiBearerAuth,ApiBody,ApiHeader} from '@nestjs/swagger';
 import {LoginDTO} from './user.dto'
 
 // @ts-ignore
+@ApiBearerAuth()
 @ApiTags('user')
+@ApiHeader({
+    name: 'token',
+    description: 'token'
+})
 @Controller('user')
 export class UserController {
     constructor(private readonly authService: AuthService,private readonly userService: UserService){}
