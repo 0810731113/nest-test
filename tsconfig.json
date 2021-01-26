@@ -1,15 +1,19 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "declaration": true,
-    "removeComments": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
     "target": "es2017",
+    "module": "CommonJS",
+    "moduleResolution": "node",
     "sourceMap": true,
+    "incremental": true,
+    "declaration": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "importHelpers": true,
+    "skipLibCheck": true,
     "outDir": "./dist",
-    "baseUrl": "./",
-    "incremental": true
+    "noImplicitAny": false,
+    "lib": ["es2020"]
   }
 }
