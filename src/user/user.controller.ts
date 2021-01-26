@@ -39,7 +39,7 @@ export class UserController {
         return user;
     }
 
-    // @UseGuards(AuthGuard('jwt'))
+    @UseGuards(AuthGuard('jwt'))
     @UsePipes(new ValidationPipe())
     @Post('register')
     @ApiBody({
