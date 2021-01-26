@@ -47,17 +47,17 @@ async function bootstrap() {
     ws:true,
   });
 
-  // if(process.env.NODE_ENV !== 'production'){
-  //   app.use(
-  //       configService.get('PUBLIC_PATH'),
-  //       proxyMidware,
-  //   )
-  // }
-  //
-  // app.use(
-  //     new RegExp(`^(?!${configService.get('BASE')}).+`),
-  //     proxyMidware,
-  // )
+  if(process.env.NODE_ENV !== 'production'){
+    app.use(
+        configService.get('PUBLIC_PATH'),
+        proxyMidware,
+    )
+  }
+
+  app.use(
+      new RegExp(`^(?!${configService.get('BASE')}).+`),
+      proxyMidware,
+  )
   const options = new DocumentBuilder()
       .addBearerAuth()
       .setTitle('Nest zero to one')
