@@ -6,8 +6,6 @@
       name="viewport"
       content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"
     />
-    <meta name="keywords" content="药试圈" />
-    <meta name="description" content="浙江太美医疗有限公司" />
     <link
       rel="shortcut icon"
       type="image/x-icon"
@@ -28,7 +26,7 @@
     </script>
     <script src="/index-static/@@/devScripts.js"></script>
     <script>
-      //! umi version: 3.3.3
+      //! umi version: 3.3.7
     </script>
     <script defer="true">
       !(function (e, t, n, g, i) {
@@ -48,32 +46,35 @@
       gio("init", "90cd4fa8e924e7b7");
       gio("config", { hashtag: true });
 
+      if (window.location.hostname == "www.trialos.com") {
+        gio("track", "homechannelpageview", {});
+        gio("send");
+      }
+
       var time = setInterval(function () {
-        var ses = JSON.parse(window.localStorage.getItem("sso_loginInfo"));
-        // @TODO 测试暂时注释
-        // if (window.location.hostname == "www.trialos.com") {
-        //正式环境启用
-        if (ses && ses.UserId) {
-          gio("setUserId", ses.UserId);
+        var ses = JSON.parse(window.sessionStorage.getItem("userCacheData"));
+        if (window.location.hostname == "www.trialos.com") {
+          //正式环境启用
+          if (ses && ses.UserId) {
+            gio("setUserId", ses.UserId);
 
-          gio("app.set", ses);
+            gio("app.set", ses);
 
-          gio("people.set", ses);
+            gio("people.set", ses);
 
-          gio("visitor.set", ses);
+            gio("visitor.set", ses);
 
-          gio("page.set", ses);
+            gio("page.set", ses);
 
-          gio("evar.set", ses);
+            gio("evar.set", ses);
 
-          gio("send");
-          clearInterval(time);
+            gio("send");
+            clearInterval(time);
+          }
         }
-        // }
       }, 10000);
     </script>
     <script src="https://gw.alipayobjects.com/os/lib/alipay/react16-map-set-polyfill/1.0.2/dist/react16-map-set-polyfill.min.js"></script>
-    <title>药试圈</title>
   </head>
   <body>
     <div id="root"></div>
