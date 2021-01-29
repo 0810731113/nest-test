@@ -48,23 +48,23 @@ async function bootstrap() {
   // app.setGlobalPrefix(`nest`)
   app.setGlobalPrefix(configService.get('BASE'));
   app.use(logger);
-  const proxyMidware = createProxyMiddleware({
-    target: configService.get('TARGET'),
-    changeOrigin:true,
-    ws:true,
-  });
-
-  if(process.env.NODE_ENV !== 'production'){
-    app.use(
-        configService.get('PUBLIC_PATH'),
-        proxyMidware,
-    )
-  }
-
-  app.use(
-      new RegExp(`^(?!${configService.get('BASE')}).+`),
-      proxyMidware,
-  )
+  // const proxyMidware = createProxyMiddleware({
+  //   target: configService.get('TARGET'),
+  //   changeOrigin:true,
+  //   ws:true,
+  // });
+  //
+  // if(process.env.NODE_ENV !== 'production'){
+  //   app.use(
+  //       configService.get('PUBLIC_PATH'),
+  //       proxyMidware,
+  //   )
+  // }
+  //
+  // app.use(
+  //     new RegExp(`^(?!${configService.get('BASE')}).+`),
+  //     proxyMidware,
+  // )
   const options = new DocumentBuilder()
       .addBearerAuth()
       .setTitle('Nest zero to one')
